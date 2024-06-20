@@ -9,11 +9,23 @@ export default function ClientSessionPage() {
     <div className="p-4">
       {status === 'loading' && <p>loading...</p>}
       {status === 'unauthenticated' && (
-        <Link href="/api/auth/signin" className="border-2 p-2">
+        <Link
+          href={`/api/auth/signin?callbackUrl=${encodeURIComponent(
+            process.env.NEXT_PUBLIC_API_URL + '/auth/client-session'
+          )}`}
+          className="border-2 p-2"
+        >
           Sign in
         </Link>
       )}
-      {status === 'authenticated' && <div>{session.user?.name}</div>}
+      {status === 'authenticated' && (
+        <div>
+          {session.user?.name}
+          <Link href="/api/auth/signout" className="border-2 p-2 ml-4">
+            Sign out
+          </Link>
+        </div>
+      )}
     </div>
   );
 }

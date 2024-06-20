@@ -7,9 +7,21 @@ export default async function AuthPage() {
 
   return (
     <div className="p-4">
-      {session && <p>{session?.user?.name}</p>}
+      {session && (
+        <p>
+          {session?.user?.name}
+          <Link href="/api/auth/signout" className="border-2 p-2 ml-4">
+            Sign out
+          </Link>
+        </p>
+      )}
       {!session && (
-        <Link href="/api/auth/signin" className="border-2 p-2">
+        <Link
+          href={`/api/auth/signin?callbackUrl=${
+            process.env.NEXTAUTH_URL + '/auth'
+          }`}
+          className="border-2 p-2"
+        >
           Sign in
         </Link>
       )}
