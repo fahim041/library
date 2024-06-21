@@ -3,7 +3,7 @@ import schema, { schemaType } from './schema';
 import prisma from '@/prisma/client';
 
 export async function GET(request: NextRequest) {
-  const users = await prisma.user.findMany();
+  const users = await prisma.apiUser.findMany();
   return NextResponse.json(users);
 }
 
@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(validation.error.errors, { status: 400 });
   }
 
-  const user = await prisma.user.findUnique({
+  const user = await prisma.apiUser.findUnique({
     where: {
       email: body.email,
     },
@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
   if (user)
     return NextResponse.json({ error: 'Email already taken' }, { status: 400 });
 
-  const newUser = await prisma.user.create({
+  const newUser = await prisma.apiUser.create({
     data: {
       email: body.email,
       name: body.name,
