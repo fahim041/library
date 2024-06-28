@@ -6,12 +6,12 @@ import Navbar from './Navbar';
 
 const router = createBrowserRouter([
   {
-    path: '/react/routing',
+    path: '/react/routing/',
     element: <Navbar />,
     children: [
-      { path: '/react/routing', element: <Home /> },
-      { path: '/react/routing/users', element: <Users /> },
-      { path: '/react/routing/users/:id', element: <UserDetail /> },
+      { path: '', element: <Home /> },
+      { path: 'users', element: <Users /> },
+      { path: 'users/:id', element: <UserDetail /> },
     ],
   },
 ]);
