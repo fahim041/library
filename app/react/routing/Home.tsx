@@ -4,16 +4,16 @@ export default function Home() {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        navigate('/react/routing/page-1');
+        navigate('/react/routing/users');
     }
 
   return (
     <div>
       <h1>Home</h1>
-      <Link to="/react/routing/page-1" className="text-blue-700 cursor-pointer">Page One</Link>
+      <Link to="/react/routing/users" className="text-blue-700 cursor-pointer">Users</Link>
 
       <div>
-        <button onClick={handleClick} className="p-2 cursor-pointer border border-gray-400">Page One</button>
+        <button onClick={handleClick} className="p-2 cursor-pointer border border-gray-400">Users</button>
       </div>
       
     </div>
