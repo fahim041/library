@@ -27,6 +27,7 @@ export default function Form({ categories, addExpense }: Props) {
   });
 
   const handleForm = (data: Expense) => {
+    data.id = new Date().getTime();
     addExpense(data);
     reset();
   };

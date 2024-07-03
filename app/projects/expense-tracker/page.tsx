@@ -17,11 +17,17 @@ export default function Page() {
 
   const addExpense = (expense: Expense) => {
     setExpenseList([...expenseList, expense]);
+  };
+
+  const deleteExpense = (id: number) => {
+    setExpenseList(expenseList.filter(expense => expense.id !== id));
   }
 
-  return <div className='w-full flex flex-col justify-center items-center gap-6'>
-    <Form categories={categories} addExpense={addExpense}/>
-    <ExpenseTable expenseList={expenseList} />
-    {expenseList.length > 0 && <p>Total Amount: {total}</p>}
-  </div>;
+  return (
+    <div className="w-full flex flex-col justify-center items-center gap-6">
+      <Form categories={categories} addExpense={addExpense} />
+      <ExpenseTable expenseList={expenseList} deleteExpense={deleteExpense} />
+      {expenseList.length > 0 && <p>Total Amount: {total}</p>}
+    </div>
+  );
 }
