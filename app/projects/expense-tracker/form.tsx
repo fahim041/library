@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 interface Props {
   categories: Category[];
+  addExpense: (expense: Expense) => void;
 }
 
 const schema = z.object({
@@ -15,21 +16,22 @@ const schema = z.object({
   category: z.string().min(3, { message: 'Category is required' }),
 });
 
-export default function Form({ categories }: Props) {
+export default function Form({ categories, addExpense }: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors },
+    reset
   } = useForm<Expense>({
     resolver: zodResolver(schema),
   });
 
   const handleForm = (data: Expense) => {
-    console.log(data);
+    addExpense(data);
+    reset();
   };
 
   return (
-    <div className="w-full flex flex-col justify-center items-center">
       <form className="p-2 w-1/2" onSubmit={handleSubmit(handleForm)}>
         <div className="mb-2">
           <label htmlFor="description">Description</label>
@@ -48,7 +50,7 @@ export default function Form({ categories }: Props) {
             id="amount"
             type="number"
             className="border p-1 w-full mt-1 rounded"
-            {...register('amount')}
+            {...register('amount', {valueAsNumber: true})}
           />
           {errors.amount && (
             <p className="text-red-500">{errors.amount.message}</p>
@@ -76,6 +78,5 @@ export default function Form({ categories }: Props) {
           Submit
         </button>
       </form>
-    </div>
   );
 }
