@@ -9,7 +9,7 @@ interface Props {
 
 export default function TodoForm({ filter }: Props) {
   const queryClient = useQueryClient();
-  const addTodo = useMutation({
+  const addTodo = useMutation<Todo, Error, Todo>({
     mutationFn: (todo: Todo) =>
       axios
         .post<Todo>('https://jsonplaceholder.typicode.com/todos', todo)
@@ -44,11 +44,14 @@ export default function TodoForm({ filter }: Props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input ref={ref} type="text" className="border p-1 mb-2" />
-      <button type="submit" className="border px-1 py-1 ml-2">
-        Add
-      </button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <input ref={ref} type="text" className="border p-1 mb-2" />
+        <button type="submit" className="border px-1 py-1 ml-2">
+          Add
+        </button>
+      </form>
+      {addTodo.error && <p className='text-red-500'>{addTodo.error.message}</p>}
+    </>
   );
 }
