@@ -26,6 +26,8 @@ export default function TodoForm({ filter }: Props) {
         savedTodo,
         ...(todos || []),
       ]);
+
+      if (ref.current) ref.current.value = '';
     },
   });
   const ref = useRef<HTMLInputElement>(null);
@@ -47,11 +49,15 @@ export default function TodoForm({ filter }: Props) {
     <>
       <form onSubmit={handleSubmit}>
         <input ref={ref} type="text" className="border p-1 mb-2" />
-        <button type="submit" className="border px-1 py-1 ml-2">
-          Add
+        <button
+          disabled={addTodo.isPending}
+          type="submit"
+          className="border px-1 py-1 ml-2"
+        >
+          {addTodo.isPending ? 'Adding...' : 'Add'}
         </button>
       </form>
-      {addTodo.error && <p className='text-red-500'>{addTodo.error.message}</p>}
+      {addTodo.error && <p className="text-red-500">{addTodo.error.message}</p>}
     </>
   );
 }
