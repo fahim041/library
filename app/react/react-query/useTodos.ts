@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 
 export interface Todo {
@@ -36,6 +36,32 @@ const useTodos = (query: PostQuery) => {
     queryFn: fetchTodos,
     staleTime: 10 * 60 * 1000,
     placeholderData: (prev) => prev,
+  });
+};
+
+export const todoMutation = (filter: PostQuery, onUpdate: () => void) => {
+  const queryClient = useQueryClient();
+  return useMutation<Todo, Error, Todo>({
+    mutationFn: (todo: Todo) =>
+      axios
+        .post<Todo>('https://jsonplaceholder.typicode.com/todos', todo)
+        .then((res) => res.data),
+    onSuccess: (savedTodo, newTodo) => {
+      // invalidate the cache, not works with jsonplaceholder
+
+      // queryClient.invalidateQueries({
+      //     queryKey: ['todos', filter]
+      // })
+
+      // update the data in cache
+      queryClient.setQueryData<Todo[]>(['todos', filter], (todos) => [
+        savedTodo,
+        ...(todos || []),
+      ]);
+
+      // to show the update UI in component
+      onUpdate();
+    },
   });
 };
 

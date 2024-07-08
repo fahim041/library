@@ -1,34 +1,13 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useRef } from 'react';
-import { PostQuery, Todo } from './useTodos';
-import axios from 'axios';
+import { PostQuery, todoMutation } from './useTodos';
 
 interface Props {
   filter: PostQuery;
 }
 
 export default function TodoForm({ filter }: Props) {
-  const queryClient = useQueryClient();
-  const addTodo = useMutation<Todo, Error, Todo>({
-    mutationFn: (todo: Todo) =>
-      axios
-        .post<Todo>('https://jsonplaceholder.typicode.com/todos', todo)
-        .then((res) => res.data),
-    onSuccess: (savedTodo, newTodo) => {
-      // invalidate the cache, not works with jsonplaceholder
-
-      // queryClient.invalidateQueries({
-      //     queryKey: ['todos']
-      // })
-
-      // update the data in cache
-      queryClient.setQueryData<Todo[]>(['todos', filter], (todos) => [
-        savedTodo,
-        ...(todos || []),
-      ]);
-
-      if (ref.current) ref.current.value = '';
-    },
+  const addTodo = todoMutation(filter, () => {
+    console.log('Todo added');
   });
   const ref = useRef<HTMLInputElement>(null);
 
@@ -42,6 +21,8 @@ export default function TodoForm({ filter }: Props) {
         completed: false,
         userId: 1,
       });
+
+      if (ref.current) ref.current.value = '';
     }
   };
 
