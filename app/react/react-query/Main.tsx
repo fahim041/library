@@ -1,6 +1,7 @@
 import Spinner from '@/app/components/tailwind/spinner/Spinner';
 import useTodos from './useTodos';
 import { useState } from 'react';
+import TodoForm from './TodoForm';
 
 export default function Main() {
   const pageSize = 10;
@@ -20,6 +21,7 @@ export default function Main() {
 
   return (
     <div className="p-4">
+      <TodoForm filter={{ userId, pageSize, page }} />
       <select
         className="border px-2 py-1 mb-2"
         onChange={(e) => setUserId(parseInt(e.target.value))}

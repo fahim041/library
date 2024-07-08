@@ -1,14 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-interface Todo {
+export interface Todo {
   id: number;
   title: string;
   completed: boolean;
   userId: number;
 }
 
-interface PostQuery {
+export interface PostQuery {
   page: number;
   pageSize: number;
   userId: number | null;
