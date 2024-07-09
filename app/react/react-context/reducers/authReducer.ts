@@ -9,7 +9,7 @@ interface LogoutAction {
 
 export type AuthAction = LoginAction | LogoutAction;
 
-const authReducer = (user: string, action: AuthAction) => {
+const authReducer = (user: string, action: AuthAction): string => {
     if(action.type === 'LOGIN') return action.payload;
     if(action.type === 'LOGOUT') return '';
     return user;
