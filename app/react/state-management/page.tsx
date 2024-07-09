@@ -1,6 +1,6 @@
 'use client';
-import Counter from './Counter';
+import TaskList from './Task';
 
 export default function Page() {
-  return <Counter />;
+  return <TaskList />;
 }

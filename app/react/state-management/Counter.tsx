@@ -1,6 +1,5 @@
 import { useReducer } from 'react';
 import counterReducer from './reducers/counterReducer';
-import Child from './Child';
 
 export default function Counter() {
   const [value, dispatch] = useReducer(counterReducer, 0);
@@ -31,8 +30,6 @@ export default function Counter() {
           Reset
         </button>
       </div>
-
-      <Child />
     </div>
   );
 }
