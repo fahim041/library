@@ -1,8 +1,8 @@
-import { useReducer } from 'react';
-import counterReducer from './reducers/counterReducer';
+import { useContext } from "react";
+import CounterContext from "./context/counterContext";
 
 export default function Counter() {
-  const [value, dispatch] = useReducer(counterReducer, 0);
+  const {count: value, dispatch} = useContext(CounterContext);
 
   return (
     <div className="p-4">

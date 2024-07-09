@@ -1,11 +1,11 @@
-import { useReducer } from 'react';
-import counterReducer from './reducers/counterReducer';
+import { useContext } from 'react';
+import CounterContext from './context/counterContext';
 
 export default function Child() {
-  const [value, dispatch] = useReducer(counterReducer, 0);
+  const { dispatch } = useContext(CounterContext);
 
   return (
-    <div>
+    <div className="p-4">
       <h3>Child Component</h3>
 
       <button

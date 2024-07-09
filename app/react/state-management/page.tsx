@@ -1,6 +1,6 @@
 'use client';
-import TaskList from './Task';
+import App from './App';
 
 export default function Page() {
-  return <TaskList />;
+  return <App />;
 }
