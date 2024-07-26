@@ -4,7 +4,7 @@ import authReducer from './reducers/authReducer';
 import Home from './Home';
 import Navbar from './Navbar';
 import authContext from './context/authContext';
-import TaskProvider from './context/taskContext';
+import TaskProvider from './context/TaskContext';
 
 export default function Page() {
   const [user, authDispatch] = useReducer(authReducer, '');
