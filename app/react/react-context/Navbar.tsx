@@ -1,9 +1,9 @@
-import { useContext } from "react";
 import AuthStatus from "./AuthStatus";
-import taskContext from "./context/taskContext";
+import { useTask } from "./context/taskContext";
 
 export default function Navbar() {
-  const {tasks} = useContext(taskContext);
+  // const {tasks} = useContext(taskContext);
+  const {tasks} = useTask();
 
   return (
     <div className="p-4 bg-blue-600 text-white flex justify-between items-center">
